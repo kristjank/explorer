@@ -1,5 +1,7 @@
 import { mount, createLocalVue } from "@vue/test-utils";
 import CurrencyMixin from "@/mixins/currency";
+import MiscMixin from "@/mixins/misc";
+import TransactionTypesMixin from "@/mixins/transaction-types";
 import StringsMixin from "@/mixins/strings";
 
 import TransactionDetails from "@/components/transaction/Details";
@@ -35,6 +37,7 @@ describe("Components > Transaction > Details", () => {
       propsData: {
         transaction: {
           id: "transaction-id",
+          confirmations: 1,
           vendorField: "vendor-field",
         },
       },
@@ -44,10 +47,10 @@ describe("Components > Transaction > Details", () => {
       },
       i18n,
       localVue,
-      mixins: [CurrencyMixin, StringsMixin],
+      mixins: [CurrencyMixin, MiscMixin, StringsMixin, TransactionTypesMixin],
       store,
     });
-    expect(wrapper.findAll(".list-row-border-b")).toHaveLength(5);
+    expect(wrapper.findAll(".list-row-border-b")).toHaveLength(6);
     expect(wrapper.findAll(".list-row-border-b-no-wrap")).toHaveLength(2);
     expect(wrapper.findAll(".list-row")).toHaveLength(1);
   });

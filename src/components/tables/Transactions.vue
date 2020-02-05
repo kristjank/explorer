@@ -27,7 +27,13 @@
         </div>
 
         <div v-else-if="data.column.field === 'recipient'">
-          <LinkWallet :address="data.row.recipient" :type="data.row.type" :asset="data.row.asset" />
+          <LinkWallet
+            :address="data.row.recipient"
+            :type="data.row.type"
+            :asset="data.row.asset"
+            :type-group="data.row.typeGroup"
+            :show-timelock-icon="true"
+          />
         </div>
 
         <div v-else-if="data.column.field === 'vendorField'">
@@ -37,7 +43,7 @@
         </div>
 
         <div v-else-if="data.column.field === 'amount'">
-          <TransactionAmount :transaction="data.row" :type="data.row.type" />
+          <TransactionAmount :transaction="data.row" />
         </div>
 
         <div v-else-if="data.column.field === 'fee'">
@@ -48,13 +54,13 @@
           <div class="flex items-center justify-end whitespace-no-wrap">
             <div
               v-if="data.row.confirmations <= activeDelegates"
-              class="flex items-center justify-end whitespace-no-wrap"
+              class="flex items-center justify-end whitespace-no-wrap text-green"
             >
-              <span class="text-green inline-block mr-2">{{ data.row.confirmations }}</span>
-              <img class="icon flex-none" src="@/assets/images/icons/clock.svg" />
+              <span class="inline-block mr-2">{{ readableNumber(data.row.confirmations) }}</span>
+              <SvgIcon class="icon flex-none" name="became-active" view-box="0 0 16 16" />
             </div>
             <div v-else>
-              <div v-tooltip="data.row.confirmations + ' ' + $t('COMMON.CONFIRMATIONS')">
+              <div v-tooltip="readableNumber(data.row.confirmations) + ' ' + $t('COMMON.CONFIRMATIONS')">
                 {{ $t("TRANSACTION.WELL_CONFIRMED") }}
               </div>
             </div>
