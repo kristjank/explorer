@@ -73,6 +73,14 @@
           </div>
         </div>
 
+        <div v-if="transaction && transaction.asset && transaction.asset.certifiedData" class="list-row-border-b">
+          <div class="mr-4">CertifiedData</div>
+          <div class="certifiedDataShow">
+            {{transaction.asset.certifiedData.data}}
+          </div>
+        </div>
+
+
         <div class="list-row-border-b-no-wrap">
           <div class="mr-4">{{ $t("COMMON.TIMESTAMP") }}</div>
           <div v-if="transaction.timestamp">{{ readableTimestamp(transaction.timestamp.unix) }}</div>
@@ -207,7 +215,7 @@ import { BigNumber } from "@/utils/BigNumber";
 import { TranslateResult } from "vue-i18n";
 import { mapGetters } from "vuex";
 import { ITransaction } from "@/interfaces";
-import { CoreTransaction, MagistrateTransaction, TypeGroupTransaction } from "@/enums";
+import { CertificateTransaction, CoreTransaction, MagistrateTransaction, TypeGroupTransaction } from "@/enums";
 import { LinkTransaction } from "@/components/links";
 import CryptoCompareService from "@/services/crypto-compare";
 import TransactionService from "@/services/transaction";
@@ -260,6 +268,8 @@ export default class TransactionDetails extends Vue {
         return this.transaction.asset.bridgechainResignation;
       case MagistrateTransaction.BRIDGECHAIN_UPDATE:
         return this.transaction.asset.bridgechainUpdate;
+      case CertificateTransaction.CERTIFIED_DATA:
+        return this.transaction.asset.certifiedData.data;
       default:
         return [];
     }

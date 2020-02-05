@@ -1,14 +1,14 @@
 {
-  "title": "DARK Explorer",
-  "server": "https://dexplorer.ark.io/api",
+  "title": "DVPT Explorer",
+  "server": "http://49.12.15.12:4003/api",
   "alias": "Development",
-  "activeDelegates": 51,
-  "rewardOffset": 10800,
+  "activeDelegates": 5,
+  "rewardOffset": 10000000000000,
   "currencies": [],
   "knownWallets": {},
   "defaults": {
-    "token": "DARK",
-    "symbol": "DѦ",
+    "token": "DVPT",
+    "symbol": "DV",
     "currency": null,
     "priceChartOptions": {
       "enabled": false,

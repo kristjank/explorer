@@ -6,6 +6,11 @@
   @apply .mr-4 .py-4 .px-2 .cursor-pointer .border-b-3;
 }
 
+.certifiedDataShow {
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
 .active-tab {
   @apply .base-tab .text-lg .border-blue .text-theme-text-primary .transition;
 }

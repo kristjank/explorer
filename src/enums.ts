@@ -21,10 +21,16 @@ export enum MagistrateTransaction {
   BRIDGECHAIN_UPDATE = 5,
 }
 
+export enum CertificateTransaction {
+  CERTIFIED_DATA = 0,
+}
+
 export enum TypeGroupTransaction {
   CORE = 1,
   MAGISTRATE = 2,
+  BCDIPLOMA = 1002,
 }
+
 
 export enum ForgingStatus {
   Forging,
