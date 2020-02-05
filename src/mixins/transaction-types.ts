@@ -1,4 +1,4 @@
-import { CoreTransaction, MagistrateTransaction, TypeGroupTransaction } from "@/enums";
+import { CertificateTransaction, CoreTransaction, MagistrateTransaction, TypeGroupTransaction } from "@/enums";
 
 const isCoreTypeGroup = (typeGroup: number): boolean => {
   return typeGroup === TypeGroupTransaction.CORE;
@@ -6,6 +6,10 @@ const isCoreTypeGroup = (typeGroup: number): boolean => {
 
 const isMagistrateTypeGroup = (typeGroup: number): boolean => {
   return typeGroup === TypeGroupTransaction.MAGISTRATE;
+};
+
+const isBCDiplomaTypeGroup = (typeGroup: number): boolean => {
+  return typeGroup === TypeGroupTransaction.BCDIPLOMA;
 };
 
 export default {
@@ -77,5 +81,10 @@ export default {
     isBridgechainUpdate(type: number, typeGroup: number): boolean {
       return isMagistrateTypeGroup(typeGroup) && type === MagistrateTransaction.BRIDGECHAIN_UPDATE;
     },
+
+    isCertifiedData(type: number, typeGroup: number): boolean {
+      return isBCDiplomaTypeGroup(typeGroup) && type === CertificateTransaction.CERTIFIED_DATA;
+    },
+
   },
 };

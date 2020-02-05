@@ -4,7 +4,7 @@
       :to="{ name: 'home' }"
       class="logo-container w-50px md:w-80px h-50px md:h-80px flex-none bg-theme-accents text-2xl xl:rounded-l-md flex justify-center items-center"
     >
-      <img class="logo max-w-25px md:max-w-38px" src="@/assets/images/logo.png" />
+      <img style="height:48px;" src="@/assets/images/logo.png" />
     </RouterLink>
 
     <div class="w-full relative hidden xl:flex">

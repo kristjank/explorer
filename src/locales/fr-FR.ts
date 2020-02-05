@@ -67,6 +67,7 @@ export default {
       DELEGATE_RESIGNATION: "Résignation de Délégué",
       SENT: "Envoyé",
       RECEIVED: "Reçu",
+      CERTIFIED_DATA: "Preuve de certificat",
     },
     SENDER: "Envoyeur",
     RECIPIENT: "Bénéficiaire",

@@ -60,6 +60,7 @@
       $t("TRANSACTION.TYPES.BRIDGECHAIN_RESIGNATION")
     }}</span>
     <span v-else-if="isBridgechainUpdate(type, typeGroup)">{{ $t("TRANSACTION.TYPES.BRIDGECHAIN_UPDATE") }}</span>
+    <span v-else-if="isCertifiedData(type, typeGroup)">{{ $t("TRANSACTION.TYPES.CERTIFIED_DATA") }}</span>
     <!-- By default we simply link to a recipient as we don't know this type / typegroup combination -->
     <div v-else>
       <span v-if="showAsType">{{ $t("TRANSACTION.TYPES.UNKNOWN") }}</span>

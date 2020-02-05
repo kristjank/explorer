@@ -108,6 +108,7 @@ export default {
       SENT: "Sent",
       RECEIVED: "Received",
       UNKNOWN: "Unknown",
+      CERTIFIED_DATA: "Certificate Proof"
     },
     ASSET: {
       BRIDGECHAINID: "Bridgechain ID",

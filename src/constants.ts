@@ -1,8 +1,13 @@
 import { ITransactionType } from "@/interfaces";
-import { CoreTransaction, MagistrateTransaction, TypeGroupTransaction } from "@/enums";
+import { CertificateTransaction, CoreTransaction, MagistrateTransaction, TypeGroupTransaction } from "@/enums";
 
 export const transactionTypes: ITransactionType[] = [
   { key: "ALL", type: -1 },
+  {
+    key: "CERTIFIED_DATA",
+    type: CertificateTransaction.CERTIFIED_DATA,
+    typeGroup: TypeGroupTransaction.BCDIPLOMA,
+  },
   { key: "TRANSFER", type: CoreTransaction.TRANSFER, typeGroup: TypeGroupTransaction.CORE },
   { key: "SECOND_SIGNATURE", type: CoreTransaction.SECOND_SIGNATURE, typeGroup: TypeGroupTransaction.CORE },
   { key: "DELEGATE_REGISTRATION", type: CoreTransaction.DELEGATE_REGISTRATION, typeGroup: TypeGroupTransaction.CORE },
