@@ -1,11 +1,11 @@
 import store from "@/store";
-import emoji from "node-emoji";
+import { Sanitizer } from "@/utils/Sanitizer";
 
 const locale = store.getters["ui/locale"];
 
 export default {
   methods: {
-    truncate(value: string, length: number = 13, truncateWhere: string = "middle"): string {
+    truncate(value: string, length = 13, truncateWhere = "middle"): string {
       switch (truncateWhere) {
         case "left":
           return value.length > length ? `...${value.slice(value.length - length + 3)}` : value;
@@ -29,7 +29,7 @@ export default {
       return value.charAt(0).toUpperCase() + value.slice(1);
     },
 
-    percentageString(value: number, decimals: number = 2): string {
+    percentageString(value: number, decimals = 2): string {
       if (typeof value !== "undefined") {
         return (value / 100).toLocaleString(locale, {
           minimumFractionDigits: decimals,
@@ -39,10 +39,6 @@ export default {
       }
 
       return "-";
-    },
-
-    emojify(text: string): string {
-      return emoji.emojify(text);
     },
   },
 };

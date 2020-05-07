@@ -31,7 +31,9 @@ import {
   MigrationService,
   NodeService,
 } from "@/services";
+import { knownWalletsUrls } from "@/config";
 import { mapGetters } from "vuex";
+import axios from "axios";
 import moment from "moment";
 
 @Component({
@@ -54,7 +56,7 @@ export default class App extends Vue {
   private language: string;
   private locale: string;
   private nightMode: boolean;
-  private hasBlurFilter: boolean = false;
+  private hasBlurFilter = false;
 
   public async created() {
     MigrationService.executeMigrations();
@@ -78,7 +80,16 @@ export default class App extends Vue {
     this.$store.dispatch("network/setActiveDelegates", network.activeDelegates);
     this.$store.dispatch("network/setRewardOffset", network.rewardOffset);
     this.$store.dispatch("network/setCurrencies", network.currencies);
-    this.$store.dispatch("network/setKnownWallets", network.knownWallets);
+
+    let knownWallets;
+
+    try {
+      knownWallets = (await axios.get(knownWalletsUrls[process.env.VUE_APP_EXPLORER_CONFIG])).data;
+    } catch (error) {
+      knownWallets = {};
+    } finally {
+      this.$store.dispatch("network/setKnownWallets", knownWallets);
+    }
 
     this.fetchInitialSupply();
 
@@ -99,6 +110,16 @@ export default class App extends Vue {
     this.$store.dispatch("network/setEpoch", response.constants.epoch);
     this.$store.dispatch("network/setBlocktime", response.constants.blocktime);
     this.$store.dispatch("network/setHasHtlcEnabled", !!response.constants.htlcEnabled);
+
+    if (network.alias === "Main") {
+      try {
+        await CryptoCompareService.price(response.token);
+        this.$store.dispatch("network/setIsListed", true);
+      } catch (e) {
+        // tslint:disable-next-line:no-console
+        console.log(e.message || e.data.error);
+      }
+    }
 
     this.$store.dispatch("ui/setLanguage", localStorage.getItem("language") || "en-GB");
 
@@ -153,9 +174,14 @@ export default class App extends Vue {
   }
 
   public async updateCurrencyRate() {
-    if (this.currencyName !== this.token) {
-      const rate = await CryptoCompareService.price(this.currencyName);
-      this.$store.dispatch("currency/setRate", rate);
+    if (this.$store.getters["network/isListed"] && this.currencyName !== this.token) {
+      try {
+        const rate = await CryptoCompareService.price(this.currencyName);
+        this.$store.dispatch("currency/setRate", rate);
+      } catch (e) {
+        // tslint:disable-next-line:no-console
+        console.log(e.message || e.data.error);
+      }
     }
   }
 
@@ -190,11 +216,11 @@ export default class App extends Vue {
     let types = transactionTypes;
 
     if (!this.hasMagistrateEnabled) {
-      types = types.filter(type => type.typeGroup !== TypeGroupTransaction.MAGISTRATE);
+      types = types.filter((type) => type.typeGroup !== TypeGroupTransaction.MAGISTRATE);
     }
 
     if (!this.hasHtlcEnabled) {
-      types = types.filter(type => !type.key.startsWith("TIMELOCK"));
+      types = types.filter((type) => !type.key.startsWith("TIMELOCK"));
     }
 
     this.$store.dispatch("network/setEnabledTransactionTypes", types);

@@ -1,6 +1,8 @@
 import { ITransactionType } from "@/interfaces";
 import { CertificateTransaction, CoreTransaction, MagistrateTransaction, TypeGroupTransaction } from "@/enums";
 
+export const URI_QRCODE_SCHEME_PREFIX = "ark:";
+
 export const transactionTypes: ITransactionType[] = [
   { key: "ALL", type: -1 },
   {
@@ -46,3 +48,6 @@ export const transactionTypes: ITransactionType[] = [
     typeGroup: TypeGroupTransaction.MAGISTRATE,
   },
 ];
+
+export const apiLimit = 100;
+export const paginationLimit = 25;
